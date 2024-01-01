@@ -24,7 +24,7 @@ I find inspiration in the words of Steve Jobs, whose biography I am currently de
 ## 📈 Progress Tracker
 
 - **Goals for 2024:**
-- 1. Solve the POTD daily.
+  1. Solve the POTD daily.
   2. Focus on the type of questions being solved rather than the count of them.
 
 ## Let's Connect!
