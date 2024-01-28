@@ -18,6 +18,32 @@ void convertToLower(string &sen)
     }
 }
 
+void printMap()
+{
+    cout << endl
+         << "The mapping of words is : " << endl
+         << endl;
+    for (auto pair : mp)
+    {
+        string key = pair.first;
+        vector<string> values = pair.second;
+
+        cout << key << " : ";
+        for (int i = 0; i < values.size(); i++)
+        {
+            cout << values[i];
+
+            if (i != values.size() - 1)
+                cout << " , ";
+        }
+
+        cout << endl;
+    }
+
+    cout << "end of mapping " << endl
+         << endl;
+}
+
 void suggestion(string s)
 {
     stringstream obj(s);
@@ -47,32 +73,13 @@ void suggestion(string s)
         mp[tokens[i]].push_back(tokens[i + 1]);
     }
 
-    for (auto pair : mp)
-    {
-        string key = pair.first;
-        vector<string> values = pair.second;
-
-        cout << key << " : ";
-        for (int i = 0; i < values.size(); i++)
-        {
-            cout << values[i];
-
-            if (i != values.size() - 1)
-                cout << " , ";
-        }
-
-        cout << endl;
-    }
+    // comment the below line to not see the mapping of words
+    printMap();
 }
 
-int main()
+void predictiveModelling()
 {
-    // for simplicity punctuation marks are not in the string
-    string s = "My name is Rahim and I study Computer Science and I study competitive programming";
-
-    suggestion(s);
-
-    vector<string> userSentence;
+    vector<string> secondSentence;
 
     for (int i = 0; i < 10000; i++)
     {
@@ -82,10 +89,10 @@ int main()
         if (word == "end")
             break;
 
-        userSentence.push_back(word);
+        secondSentence.push_back(word);
 
         cout << "Sentence: ";
-        for (const auto &w : userSentence)
+        for (const auto &w : secondSentence)
         {
             cout << w << " ";
         }
@@ -110,4 +117,17 @@ int main()
                  << endl;
         }
     }
+}
+
+int main()
+{
+    // for simplicity punctuation marks are not in the string
+    string s = "My name is Rahim and I study Computer Science and I study competitive programming";
+
+    // comment the below line if you want the modelling to be hardcoded.
+    // cin >> s;
+    suggestion(s); // populates the map for suggestive predicting
+
+    // input is taken within the function itself
+    predictiveModelling(); // generates the predictions word after word for the second statement
 }
