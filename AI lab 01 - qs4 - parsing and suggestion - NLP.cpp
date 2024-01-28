@@ -6,6 +6,17 @@ typedef vector<int> vi;
 typedef vector<vi> vii;
 
 unordered_map<string, vector<string>> mp; // to store which word comes after which word.
+unordered_set<string> st;                 // created to solve the repitition of suggestions
+
+void convertToLower(string &sen)
+{
+    // function to convert a word to lowercase
+
+    for (int i = 0; i < sen.size(); i++)
+    {
+        sen[i] = tolower(sen[i]);
+    }
+}
 
 void suggestion(string s)
 {
@@ -16,6 +27,9 @@ void suggestion(string s)
     // Tokenizing w.r.t. space ' '
     while (getline(obj, intermediate, ' '))
     {
+        // use a loop to convert to lower case for standard comparison
+        convertToLower(intermediate);
+
         tokens.push_back(intermediate);
     }
 
@@ -58,5 +72,42 @@ int main()
 
     suggestion(s);
 
-    string y;
+    vector<string> userSentence;
+
+    for (int i = 0; i < 10000; i++)
+    {
+        string word;
+        cin >> word;
+
+        if (word == "end")
+            break;
+
+        userSentence.push_back(word);
+
+        cout << "Sentence: ";
+        for (const auto &w : userSentence)
+        {
+            cout << w << " ";
+        }
+        cout << endl;
+
+        if (mp.find(word) != mp.end())
+        {
+            // means that this word was present in sentence one
+
+            cout << "suggestions : ";
+
+            vector<string> values = mp[word];
+            for (string i : values)
+            {
+                // suggestions shouldnt repeat - therefore using set
+                if (st.find(i) == st.end())
+                    cout << i << " ";
+
+                st.insert(i);
+            }
+            cout << endl
+                 << endl;
+        }
+    }
 }
