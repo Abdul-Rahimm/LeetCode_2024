@@ -4,26 +4,34 @@ using namespace std;
 #define all(x) x.begin(), x.end()
 typedef vector<int> vi;
 typedef vector<vi> vii;
-int solve(int n, int i)
+int dp[10001];
+
+int solve(int n)
 {
-    int square = i * i;
-    int takeValue = n - square;
 
-    if (takeValue == 0)
-        return 1;
-    if (takeValue < 0)
-        return INT_MAX;
+    if (dp[n] != -1)
+        return dp[n];
 
-    int take = 1 + solve(takeValue, i);
-    int ntake = solve(n, i + 1);
+    if (n == 0)
+        return 0;
 
-    return min(take, ntake);
+    int minCount = INT_MAX;
+
+    for (int i = 1; i * i <= n; i++)
+    {
+        int result = 1 + solve(n - (i * i));
+
+        minCount = min(minCount, result);
+    }
+
+    return dp[n] = minCount;
 }
 
 int numSquares(int n)
 {
 
-    return solve(n, 1);
+    memset(dp, -1, sizeof(dp));
+    return solve(n);
 }
 
 int main()
