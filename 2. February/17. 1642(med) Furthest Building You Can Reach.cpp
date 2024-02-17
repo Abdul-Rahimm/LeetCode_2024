@@ -23,7 +23,9 @@ int solve(int i, int bricks, int ladders)
     // choice between ladder brick - which will take u farther - burj khalifa
 
     int brick = 0;
-    int requiredBricks = nums[i + 1] - nums[i];
+    int requiredBricks = INT_MAX;
+    if (i < n - 1)
+        requiredBricks = nums[i + 1] - nums[i];
 
     if (bricks >= requiredBricks)
     {
@@ -38,7 +40,6 @@ int solve(int i, int bricks, int ladders)
 
     return max(brick, ladder);
 }
-
 int furthestBuilding(vector<int> &heights, int bricks, int ladders)
 {
     nums = heights;
@@ -46,23 +47,68 @@ int furthestBuilding(vector<int> &heights, int bricks, int ladders)
 
     return solve(0, bricks, ladders);
 }
+
+int furthestBuilding(vector<int> &heights, int bricks, int ladders)
+{
+    int n = heights.size();
+
+    priority_queue<int> pq;
+
+    int i = 0;
+    for (; i < n - 1; i++)
+    {
+        if (heights[i] >= heights[i + 1])
+        {
+            continue;
+        }
+
+        int diff = heights[i + 1] - heights[i];
+        if (diff <= bricks)
+        {
+            bricks -= diff;
+            pq.push(diff); // I used diff bricks here (keep track of it)
+        }
+        else if (ladders > 0)
+        {
+            if (!pq.empty())
+            {
+                int max_bricks_past = pq.top();
+                if (max_bricks_past > diff)
+                {
+                    // it means i unneccasrily used huge bricks in past. Let's get it back
+                    bricks += max_bricks_past;
+                    pq.pop();
+                    pq.push(diff);
+                    bricks -= diff;
+                }
+            }
+            ladders--; // either used in past or present
+        }
+        else
+        {
+            break;
+        }
+    }
+    return i;
+}
+
 int main()
 {
     fastio;
-    // vector<int> nums{4, 2, 7, 6, 9, 14, 12};
-    // cout << furthestBuilding(nums, 5, 1) << endl;
+    vector<int> nums{14, 3, 19, 3};
+    cout << furthestBuilding(nums, 17, 0) << endl;
 
-    int t;
-    cin >> t;
+    // int t;
+    // cin >> t;
 
-    vector<int> nums(t);
+    // vector<int> nums(t);
 
-    for (int i = 0; i < t; i++)
-        cin >> nums[i];
+    // for (int i = 0; i < t; i++)
+    //     cin >> nums[i];
 
-    int bricks, ladders;
-    cin >> bricks >> ladders;
+    // int bricks, ladders;
+    // cin >> bricks >> ladders;
 
-    cout << furthestBuilding(nums, bricks, ladders) << endl;
+    // cout << furthestBuilding(nums, bricks, ladders) << endl;
     return 0;
 }
