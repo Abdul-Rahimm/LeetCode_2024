@@ -76,6 +76,32 @@ long long largestPerimeter(vector<int> &nums)
     return i > 2 ? total : -1;
 }
 
+long long modified_largestPerimeter(vector<int> &nums)
+{
+    int n = nums.size();
+    sort(nums.begin(), nums.end());
+
+    long long total = nums[0] + nums[1];
+    long long largest = -1;
+
+    for (int i = 2; i < n; i++)
+    {
+        // current total is total before picking up the new side
+        bool status = false;
+
+        if (total > nums[i])
+        {
+            status = true;
+        }
+
+        total += nums[i];
+
+        if (status)
+            largest = total;
+    }
+
+    return largest;
+}
 int main()
 {
     fastio;
