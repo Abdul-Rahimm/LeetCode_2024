@@ -1,0 +1,94 @@
+									AI Assignment 01				
+									  Abdul  Rahim
+									   K21 - 3951
+									       H
+
+Qs1 --
+let's address each question separately:
+
+1. Which objections still carry some weight?
+
+The objection related to consciousness still carries weight. 
+Despite advancements in AI, machines lack subjective experience, self-awareness, and true understanding. 
+While they can perform tasks that mimic intelligence, the nature of consciousness remains a complex and unresolved issue in the development of AI.
+
+2. Are his refutations valid?
+
+Turing's refutations, particularly in response to objections related to consciousness are valid within the context of his proposed test(imitation). 
+Turing emphasized for a focus on observable behavior rather than delving into the metaphysical aspects of consciousness. 
+This perspective has influenced the development of AI, emphasizing functional capabilities and measurable outcomes.
+
+3. Can you think of new objections arising from developments since he wrote the paper?
+
+Yes, there are new objections that have arisen listed below.
+
+1. Explainability and Understanding:
+Modern AI systems, particularly deep learning models, are often criticized for being black boxes.
+While they can provide accurate predictions, explaining the reasoning behind those predictions is challenging. 
+The lack of explainability raises concerns in applications where interpretability is crucial.
+
+2. Bias and Ethical Concerns:
+AI systems can inherit and even exacerbate biases present in training data. 
+This raises ethical concerns regarding fairness and accountability, especially when AI is used in decision-making processes that affect individuals or communities.
+
+4. Do you think Turing's prediction about computers passing a Turing Test by 2000 is reasonable?
+
+Turing's prediction that a computer would have a 30% chance of passing a five-minute Turing Test by the year 2000 turned out to be overly optimistic.
+While significant progress has been made in AI, achieving human-level general intelligence and passing the Turing Test in all its complexity is still not possible. 
+The field has seen advancements in specialized AI, 
+but the broader understanding and contextual reasoning required for passing a comprehensive Turing Test have proven to be highly challenging.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Qs2 --
+
+1. Playing a decent game of table tennis (ping-pong):
+Current Status: Feasible to some extent.
+AI has demonstrated proficiency in games like table tennis, particularly with the use of reinforcement learning algorithms. 
+Robots equipped with advanced sensors and actuators have shown the ability to play ping-pong at a decent level, 
+although they may not yet match the skills of top human players.
+
+2. Driving in the center of Karachi:
+Current Status: Challenging.
+Autonomous driving technology has made significant strides, 
+but navigating complex and dynamic urban environments like the center of Karachi poses substantial challenges. 
+Real-world complexities such as diverse traffic scenarios, erratic human drivers,
+ and complex road infrastructure make this task currently infeasible for fully autonomous vehicles.
+
+3. Playing a decent game of bridge at a competitive level:
+Current Status: Challenging.
+Playing bridge at a competitive level involves complex decision-making, strategic planning, and understanding partner and opponent behavior. 
+While AI has excelled in games like chess and Go, bridge presents additional challenges due to its incomplete information nature, 
+requiring a deep understanding of human psychology and collaboration. Progress is being made, but reaching a competitive human level remains a difficulty.
+
+4. Discovering and proving new mathematical theorems:
+Current Status: Partially feasible.
+AI has shown some capability in assisting mathematicians by exploring mathematical spaces and proposing conjectures. 
+However, the creativity and intuition required for the discovery and rigorous proof of entirely new theorems are predominantly within the realm of human mathematicians. AI can be a valuable tool but is not a replacement for human insight.
+
+5. Writing an intentionally funny story:
+Current Status: Partially feasible.
+AI has demonstrated the ability to generate text and even create narratives. 
+While it can produce content with humor, generating consistently funny and contextually appropriate stories that resonate with human sensibilities is challenging. 
+Humor often involves cultural nuances and context understanding, which AI may struggle to grasp completely.
+
+6. Giving competent legal advice in a specialized area of law:
+Current Status: Limited.
+AI systems, including legal expert systems, can provide information and generate basic legal advice within specific domains. 
+However, providing competent legal advice in complex and nuanced legal situations requires a deep understanding of legal principles, 
+context, and often involves subjective interpretation, which AI may not handle accurately.
+
+7. Translating spoken English into spoken Urdu in real time:
+Current Status: Feasible to some extent.
+Real-time speech translation systems have been developed, and some are capable of translating spoken English into spoken Urdu with reasonable accuracy. 
+However, challenges such as variations in accents, colloquialisms, and context-specific understanding still exist. 
+Continuous advancements are being made in this area.
+
+In summary, while AI has made remarkable progress, there are still challenges in handling tasks that require nuanced understanding, 
+real-time adaptability to complex environments, or human-like creativity and intuition.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Qs3 --
+
+
