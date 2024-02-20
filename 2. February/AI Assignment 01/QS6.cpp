@@ -151,6 +151,25 @@ void populateCities()
     cities[18] = "Vaslui";
     cities[19] = "Zering";
 }
+void askSourceDestination(int &source, int &destination)
+{
+    cout << "Please enter (0-19) Source: ";
+    cin >> source;
+    do
+    {
+        cout << "Please enter (0-19) Destination: ";
+        cin >> destination;
+    } while (source == destination);
+    cout
+        << endl
+        << endl;
+}
+void askChoice(int &choice)
+{
+    cout << "Please enter choice\n1. BFS\n2. Uniform cost search\n3. Greedy best first Search\n4. Iterative deepening DFS\nChoice: ";
+    cin >> choice;
+    cout << endl;
+}
 
 void BFS(int source, int destination)
 {
@@ -190,7 +209,7 @@ void BFS(int source, int destination)
 
                 cout << "Moving to " << cities[v] << " from " << cities[currentNode] << endl;
                 cost += rowCost;
-                cout << "Current cost added: " << rowCost << " and total : " << cost << endl;
+                cout << "Current cost added is " << rowCost << " and total becomes " << cost << endl;
                 cout << endl;
 
                 if (v == destination)
@@ -209,30 +228,73 @@ void BFS(int source, int destination)
 
     // since the graph is undirected... means we can reach all nodes from all nodes
 }
+void uniformCostSearch(int source, int destination)
+{
+    priority_queue<pair<int, P>, vector<pair<int, P>>, greater<pair<int, P>>> pq; // {cost, {source, vertex}}
+    unordered_set<int> visited;
+    int cost = 0;
+
+    pq.push({0, {source, source}});
+
+    while (!pq.empty())
+    {
+        int currentCost = pq.top().first;
+        int currentNode = pq.top().second.second;
+        int currentSource = pq.top().second.first;
+
+        pq.pop();
+
+        if (visited.find(currentNode) != visited.end())
+            continue; // Skip if already visited
+
+        visited.insert(currentNode);
+
+        cout << "Exploring node " << cities[currentNode] << " from " << cities[currentSource] << " with cost " << currentCost << endl;
+
+        if (currentNode == destination)
+        {
+            cout << cities[destination] << " reached from " << cities[source] << endl;
+            cout << "Total cost incurred: " << currentCost << "\n";
+            return;
+        }
+
+        for (const vector<int> &edge : adj)
+        {
+            int v = edge[1];
+            int edgeCost = edge[2];
+
+            if (edge[0] == currentNode && visited.find(v) == visited.end())
+            {
+                pq.push({currentCost + edgeCost, {currentNode, v}});
+            }
+        }
+    }
+}
+void greedyBestFirstSearch(int source, int destination)
+{
+}
+void IterativeDeepeningDFS(int source, int destination)
+{
+}
 
 void solve()
 {
     int choice;
-    cout << "Please enter choice\n1. BFS\n2. Uniform cost search\n3. Greedy best first Search\n4. Iterative deepening DFS\nChoice: ";
-    cin >> choice;
-    cout << endl;
+    while (choice < 1 || choice > 4)
+        askChoice(choice);
 
     int source, destination;
-
-    cout << "Please enter (0-19) Source: ";
-    cin >> source;
-    do
-    {
-        cout << "Please enter (0-19) Destination: ";
-        cin >> destination;
-    } while (source == destination);
-    cout
-        << endl
-        << endl;
+    askSourceDestination(source, destination);
 
     populateAdj(); // the undirected weighted graph has been filled with cities details
     populateCities();
 
     if (choice == 1)
         BFS(source, destination);
+    else if (choice == 2)
+        uniformCostSearch(source, destination);
+    else if (choice == 3)
+        greedyBestFirstSearch(source, destination);
+    else if (choice == 4)
+        IterativeDeepeningDFS(source, destination);
 }
