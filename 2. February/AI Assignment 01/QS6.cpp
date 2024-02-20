@@ -152,25 +152,14 @@ void populateCities()
     cities[19] = "Zering";
 }
 
-void BFS()
+void BFS(int source, int destination)
 {
     // this function perfroms the BFS along with its cost in
     // in terms of operations and travelling cost
 
     // queue will be made
-    int source, destination, cost = 0;
+    int cost = 0;
     int n = adj.size();
-
-    cout << "Please enter (0-19) Source: ";
-    cin >> source;
-    do
-    {
-        cout << "Please enter (0-19) Destination: ";
-        cin >> destination;
-    } while (source == destination);
-    cout
-        << endl
-        << endl;
 
     queue<P> q;                 // {node, cost}
     unordered_set<int> visited; // just so that we dont get stuck in a cycle if one exists
@@ -228,7 +217,22 @@ void solve()
     cin >> choice;
     cout << endl;
 
+    int source, destination;
+
+    cout << "Please enter (0-19) Source: ";
+    cin >> source;
+    do
+    {
+        cout << "Please enter (0-19) Destination: ";
+        cin >> destination;
+    } while (source == destination);
+    cout
+        << endl
+        << endl;
+
     populateAdj(); // the undirected weighted graph has been filled with cities details
     populateCities();
-    BFS();
+
+    if (choice == 1)
+        BFS(source, destination);
 }
