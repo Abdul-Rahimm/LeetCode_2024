@@ -1,24 +1,30 @@
 // بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
+
+// learned how to construct a weighted directed graph from below question
+// https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
 #include <bits/stdc++.h>
 using namespace std;
 #define endl '\n'
 #define all(x) x.begin(), x.end()
+typedef pair<int, int> P;
 typedef long long ll;
 typedef vector<int> vi;
 typedef vector<ll> vl;
 typedef vector<vi> vii;
 typedef array<int, 2> ii;
-typedef vector<ii> vii;
 const int mod = 1e9 + 7;
 
-// learned how to construct a weighted directed graph from below question
-// https://www.geeksforgeeks.org/problems/minimum-spanning-tree/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+// keeping the undirected graph global
+
+vector<vector<int>> adj;   // the graph is going to contain {source, end, weight} vectors
+vector<string> cities(20); // this vector contains names of cities
 
 void solve();
 signed main(void)
 {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
+    // ios::sync_with_stdio(false);
+    // cin.tie(nullptr);
     int tc = 1;
     // cin >> tc;
 
@@ -27,10 +33,6 @@ signed main(void)
 
     return 0;
 }
-
-// keeping the undirected graph global
-// the graph is going to contain {source, end, weight} vectors
-vector<vector<int>> adj;
 
 // the below function will be utilized for BFS
 void populateAdj()
@@ -126,8 +128,107 @@ void populateAdj()
     adj.push_back({19, 0, 75});
     adj.push_back({19, 12, 71});
 }
+void populateCities()
+{
+    cities[0] = "Arad";
+    cities[1] = "Bucharest";
+    cities[2] = "Craiova";
+    cities[3] = "Drobeta";
+    cities[4] = "Eforie";
+    cities[5] = "Fagaras";
+    cities[6] = "Giurgio";
+    cities[7] = "Hirsova";
+    cities[8] = "Iasi";
+    cities[9] = "Luzoj";
+    cities[10] = "Mehadia";
+    cities[11] = "Neamt";
+    cities[12] = "Oradea";
+    cities[13] = "Pitesi";
+    cities[14] = "Rimnieu Vilcea";
+    cities[15] = "Sibui";
+    cities[16] = "Timisoara";
+    cities[17] = "Urziceini";
+    cities[18] = "Vaslui";
+    cities[19] = "Zering";
+}
+
+void BFS()
+{
+    // this function perfroms the BFS along with its cost in
+    // in terms of operations and travelling cost
+
+    // queue will be made
+    int source, destination, cost = 0;
+    int n = adj.size();
+
+    cout << "Please enter (0-19) Source: ";
+    cin >> source;
+    do
+    {
+        cout << "Please enter (0-19) Destination: ";
+        cin >> destination;
+    } while (source == destination);
+    cout
+        << endl
+        << endl;
+
+    queue<P> q;                 // {node, cost}
+    unordered_set<int> visited; // just so that we dont get stuck in a cycle if one exists
+
+    q.push({source, 0}); // source se source is 0
+    visited.insert(source);
+
+    while (!q.empty())
+    {
+        int currentNode = q.front().first;
+
+        for (int i = 0; i < n; i++)
+        {
+            vector<int> row = adj[i]; // {src, dest, cost} triples
+
+            // we are looking for neighbours of the current node in adj
+            if (row[0] != currentNode)
+                continue;
+
+            // means reached current node in adj...now add to queue
+            int v = row[1];
+            int rowCost = row[2];
+
+            if (visited.find(v) == visited.end())
+            {
+                q.push({v, rowCost});
+                visited.insert(v);
+
+                cout << "Moving to " << cities[v] << " from " << cities[currentNode] << endl;
+                cost += rowCost;
+                cout << "Current cost added: " << rowCost << " and total : " << cost << endl;
+                cout << endl;
+
+                if (v == destination)
+                {
+                    cout << cities[destination] << " reached from " << cities[source] << endl;
+                    cout << "Number of operations: " << visited.size() << endl;
+                    cout << "Total cost incurred: " << cost << endl
+                         << endl;
+                    return;
+                }
+            }
+        }
+
+        q.pop();
+    }
+
+    // since the graph is undirected... means we can reach all nodes from all nodes
+}
 
 void solve()
 {
+    int choice;
+    cout << "Please enter choice\n1. BFS\n2. Uniform cost search\n3. Greedy best first Search\n4. Iterative deepening DFS\nChoice: ";
+    cin >> choice;
+    cout << endl;
+
     populateAdj(); // the undirected weighted graph has been filled with cities details
+    populateCities();
+    BFS();
 }
