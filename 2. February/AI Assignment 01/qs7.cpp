@@ -86,7 +86,7 @@ vector<vector<string>> solveNQueens(int n)
         string a;
         for (int j = 0; j < n; j++)
         {
-            a = a + '.';
+            a = a + ".";
             temp.push_back(0);
         }
         tempo.push_back(a);
@@ -99,11 +99,17 @@ vector<vector<string>> solveNQueens(int n)
 
 void print(vector<vector<string>> &ans)
 {
+    int count = 0;
     for (vector<string> row : ans)
     {
+        cout << "Option " << ++count << " to place all the queens: " << endl;
         for (string i : row)
         {
-            cout << i << " ";
+            for (char ch : i)
+            {
+                cout << ch << " ";
+            }
+            cout << endl;
         }
 
         cout << endl
@@ -113,8 +119,10 @@ void print(vector<vector<string>> &ans)
 
 void solve()
 {
+    cout << "Please Enter the Dimensions of the Grid.\nn = ";
     int n = 4;
     cin >> n;
+    cout << endl;
 
     vector<vector<string>> ans = solveNQueens(n);
     print(ans); // prints the chess board
