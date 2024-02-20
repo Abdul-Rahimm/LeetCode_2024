@@ -17,8 +17,9 @@ const int mod = 1e9 + 7;
 
 // keeping the undirected graph global
 
-vector<vector<int>> adj;   // the graph is going to contain {source, end, weight} vectors
-vector<string> cities(20); // this vector contains names of cities
+vector<vector<int>> adj;    // the graph is going to contain {source, end, weight} vectors
+vector<string> cities(20);  // this vector contains names of cities
+vector<int> heuristics(20); // this vector contains the hueristics for all cities
 
 void solve();
 signed main(void)
@@ -151,6 +152,29 @@ void populateCities()
     cities[18] = "Vaslui";
     cities[19] = "Zering";
 }
+void fillHeuristics()
+{
+    heuristics[0] = 366;
+    heuristics[1] = 0;
+    heuristics[2] = 160;
+    heuristics[3] = 242;
+    heuristics[4] = 161;
+    heuristics[5] = 176;
+    heuristics[6] = 77;
+    heuristics[7] = 151;
+    heuristics[8] = 226;
+    heuristics[9] = 244;
+    heuristics[10] = 241;
+    heuristics[11] = 234;
+    heuristics[12] = 380;
+    heuristics[13] = 100;
+    heuristics[14] = 193;
+    heuristics[15] = 253;
+    heuristics[16] = 329;
+    heuristics[17] = 80;
+    heuristics[18] = 199;
+    heuristics[19] = 374;
+}
 void askSourceDestination(int &source, int &destination)
 {
     cout << "Please enter (0-19) Source: ";
@@ -166,7 +190,7 @@ void askSourceDestination(int &source, int &destination)
 }
 void askChoice(int &choice)
 {
-    cout << "Please enter choice\n1. BFS\n2. Uniform cost search\n3. Greedy best first Search\n4. Iterative deepening DFS\nChoice: ";
+    cout << "Please enter choice\n0. Run all algorithms one by one and compare them\n1. BFS\n2. Uniform cost search\n3. Greedy best first Search\n4. Iterative deepening DFS\nChoice: ";
     cin >> choice;
     cout << endl;
 }
@@ -230,7 +254,10 @@ void BFS(int source, int destination)
 }
 void uniformCostSearch(int source, int destination)
 {
-    priority_queue<pair<int, P>, vector<pair<int, P>>, greater<pair<int, P>>> pq; // {cost, {source, vertex}}
+    priority_queue<pair<int, P>,
+                   vector<pair<int, P>>,
+                   greater<pair<int, P>>>
+        pq; // {cost, {source, vertex}}
     unordered_set<int> visited;
     int cost = 0;
 
@@ -238,6 +265,7 @@ void uniformCostSearch(int source, int destination)
 
     while (!pq.empty())
     {
+        // {cost, {source, vertex}}
         int currentCost = pq.top().first;
         int currentNode = pq.top().second.second;
         int currentSource = pq.top().second.first;
@@ -253,7 +281,8 @@ void uniformCostSearch(int source, int destination)
 
         if (currentNode == destination)
         {
-            cout << cities[destination] << " reached from " << cities[source] << endl;
+            cout << endl
+                 << cities[destination] << " reached from " << cities[source] << endl;
             cout << "Total cost incurred: " << currentCost << "\n";
             return;
         }
@@ -263,8 +292,9 @@ void uniformCostSearch(int source, int destination)
             int v = edge[1];
             int edgeCost = edge[2];
 
-            if (edge[0] == currentNode && visited.find(v) == visited.end())
+            if (edge[0] == currentNode && visited.find(v) == visited.end()) // meaning the one youre going to visit should be unvisited
             {
+                // add the current edge cost to total cost
                 pq.push({currentCost + edgeCost, {currentNode, v}});
             }
         }
@@ -272,15 +302,97 @@ void uniformCostSearch(int source, int destination)
 }
 void greedyBestFirstSearch(int source, int destination)
 {
+    priority_queue<P, vector<P>, greater<P>> pq; // {heuristic, node}
+    unordered_set<int> visited;
+
+    pq.push({heuristics[source], source});
+
+    while (!pq.empty())
+    {
+        int currentHeuristic = pq.top().first;
+        int currentVertex = pq.top().second;
+        pq.pop();
+
+        if (visited.find(currentVertex) != visited.end())
+            continue; // Skip if already visited
+
+        visited.insert(currentVertex);
+
+        cout << "Exploring node " << cities[currentVertex] << " with heuristic " << currentHeuristic << endl;
+
+        if (currentVertex == destination)
+        {
+            cout << endl
+                 << cities[destination] << " reached from " << cities[source] << endl;
+            cout << "Heuristic value at destination: " << currentHeuristic << "\n";
+            return;
+        }
+
+        for (const vector<int> &edge : adj)
+        {
+            int v = edge[1];
+
+            if (edge[0] == currentVertex && visited.find(v) == visited.end())
+            {
+                pq.push({heuristics[v], v});
+            }
+        }
+    }
+}
+
+bool dfs(int currentVertex, int destination, int depth, unordered_set<int> &visited)
+{
+    if (currentVertex == destination)
+    {
+        cout << "Destination reached from source.\n\n";
+        return true;
+    }
+
+    if (depth <= 0)
+    {
+        return false; // Reached the depth limit
+    }
+
+    visited.insert(currentVertex);
+
+    for (vector<int> row : adj)
+    {
+        if (row[0] != currentVertex)
+            continue;
+
+        int neighbor = row[1];
+
+        if (visited.find(neighbor) == visited.end())
+        {
+            if (dfs(neighbor, destination, depth - 1, visited))
+            {
+                cout << "Went from node " << cities[currentVertex] << " to " << cities[neighbor] << endl;
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 void IterativeDeepeningDFS(int source, int destination)
 {
+    int maxDepth = 20; // arbitrary - set to max nodes
+
+    for (int depth = 0; depth <= maxDepth; depth++)
+    {
+        unordered_set<int> visited;
+
+        cout << "Exploring at depth " << depth << ": " << endl;
+
+        if (dfs(source, destination, depth, visited))
+            return;
+    }
 }
 
 void solve()
 {
-    int choice;
-    while (choice < 1 || choice > 4)
+    int choice = -1;
+    while (choice < 0 || choice > 4)
         askChoice(choice);
 
     int source, destination;
@@ -289,12 +401,23 @@ void solve()
     populateAdj(); // the undirected weighted graph has been filled with cities details
     populateCities();
 
-    if (choice == 1)
+    if (choice == 0)
+    {
+        BFS(source, destination);
+        uniformCostSearch(source, destination);
+        fillHeuristics(); // heuristics values for GBFS
+        greedyBestFirstSearch(source, destination);
+        IterativeDeepeningDFS(source, destination);
+    }
+    else if (choice == 1)
         BFS(source, destination);
     else if (choice == 2)
         uniformCostSearch(source, destination);
     else if (choice == 3)
+    {
+        fillHeuristics(); // heuristics values for GBFS
         greedyBestFirstSearch(source, destination);
+    }
     else if (choice == 4)
         IterativeDeepeningDFS(source, destination);
 }
