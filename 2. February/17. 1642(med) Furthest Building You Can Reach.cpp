@@ -10,9 +10,10 @@ using namespace std;
 vector<int> nums;
 int n;
 
+// only needed to memoize bricks and ladders ere
 int solve(int i, int bricks, int ladders)
 {
-    if (i >= n || (bricks <= 0 && ladders <= 0))
+    if (i == n - 1)
         return 0;
 
     // no need to utilize any ladder of brick. explore ahead
