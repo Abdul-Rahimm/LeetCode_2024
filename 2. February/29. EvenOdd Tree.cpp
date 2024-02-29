@@ -1,53 +1,69 @@
-bool isEvenOddTree(TreeNode *root)
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution
 {
-    queue<TreeNode *> q;
-    q.push(root);
-    int level = 0; // initially at root level
-
-    while (!q.empty())
+public:
+    bool isEvenOddTree(TreeNode *root)
     {
-        int nodes = q.size();
-        int value = q.front()->val; // strictly inc/dec
-        int nodeCount = 0;
+        queue<TreeNode *> q;
+        q.push(root);
+        int level = 0; // initially at root level
 
-        while (nodes--)
+        while (!q.empty())
         {
-            // process one whole level of tree
-            TreeNode *front = q.front();
-            int nodeValue = front->val;
-            q.pop();
-            nodeCount++;
+            int nodes = q.size();
+            int value = q.front()->val; // strictly inc/dec
+            int nodeCount = 0;
 
-            if (front->left)
-                q.push(front->left);
-            if (front->right)
-                q.push(front->right);
-
-            if (nodeCount == 1)
-                continue;
-
-            if (level % 2 == 0)
+            while (nodes--)
             {
-                if (nodeValue % 2 == 0)
-                    return false;
-                if (nodeValue <= value)
-                    return false;
+                // process one whole level of tree
+                TreeNode *front = q.front();
+                int nodeValue = front->val;
+                q.pop();
+                nodeCount++;
 
-                value = nodeValue;
-            }
-            if (level % 2 == 1)
-            {
-                if (nodeValue % 2 == 1)
-                    return false;
-                if (nodeValue >= value)
-                    return false;
+                if (front->left)
+                    q.push(front->left);
+                if (front->right)
+                    q.push(front->right);
 
-                value = nodeValue;
+                if (level % 2 == 0)
+                {
+                    if (nodeValue % 2 == 0)
+                        return false;
+                    if (nodeCount == 1)
+                        continue;
+                    if (nodeValue <= value)
+                        return false;
+
+                    value = nodeValue;
+                }
+                if (level % 2 == 1)
+                {
+                    if (nodeValue % 2 == 1)
+                        return false;
+                    if (nodeCount == 1)
+                        continue;
+                    if (nodeValue >= value)
+                        return false;
+
+                    value = nodeValue;
+                }
             }
+
+            level++;
         }
 
-        level++;
+        return true;
     }
-
-    return true;
-}
+};
