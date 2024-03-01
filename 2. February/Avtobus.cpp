@@ -1,64 +1,32 @@
+// بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
 #include <bits/stdc++.h>
-
-#define fastio                        \
-    ios_base::sync_with_stdio(false); \
-    cin.tie(NULL)
-
-#define endl "\n"
-
 using namespace std;
-int solve_min(long long n)
+#define all(x) x.begin(), x.end()
+typedef vector<int> vi;
+typedef vector<vi> vii;
+
+void print(unordered_set<int> st)
 {
-    if (n == 0)
-        return 0;
-
-    long long four, six;
-
-    if (n - 4 >= 0)
-        four = 1 + solve_min(n - 4);
-
-    if (n - 6 >= 0)
-        six = 1 + solve_min(n - 6);
-
-    return min(four, six);
-}
-int solve_max(long long n)
-{
-    if (n == 0)
-        return 0;
-
-    long long four = 0, six = 0;
-
-    if (n - 4 >= 0)
-        four = 1 + solve_max(n - 4);
-
-    if (n - 6 >= 0)
-        six = 1 + solve_max(n - 6);
-
-    return max(four, six);
+    for (auto i : st)
+    {
+        cout << i << " ";
+    }
+    cout << endl;
 }
 
 int main()
 {
-    fastio;
-    int t = 1;
-    // cin >> t;
+    unordered_set<int> st;
 
-    while (t--)
+    int n;
+    cin >> n;
+
+    for (int i = 0; i < n; i++)
     {
-
-        long long n;
-        cin >> n;
-
-        if (n % 2 != 0)
-        {
-            cout << -1 << endl;
-            continue;
-        }
-
-        long long x = solve_min(n);
-        long long y = solve_max(n);
-        cout << x << " " << y << endl;
+        int x;
+        cin >> x;
+        st.insert(x);
     }
-    return 0;
+
+    print(st);
 }
