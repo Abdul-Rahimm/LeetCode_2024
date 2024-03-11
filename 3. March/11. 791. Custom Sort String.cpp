@@ -1,66 +1,24 @@
 class Solution
 {
 public:
-    unordered_map<char, int> mp;
-
-    bool myComparater(char a, char b)
-    {
-        if (mp[a] < mp[b])
-            return true;
-
-        return false;
-    }
-
     string customSortString(string order, string s)
     {
-
-        int count = 1;
-        for (char i : order)
-        {
-            mp[i] = count;
-            count++;
-        }
-
-        sort(s.begin(), s.end(), myComparater);
-
-        return s;
-    }
-
-    string customSortString__Ibrahim(string order, string s)
-    {
+        vector<int> mp(26, -1);
 
         int count = 0;
         for (char i : order)
         {
-            mp[i] = count;
+            mp[i - 'a'] = count;
             count++;
         }
 
-        int n = s.size();
-        string ans = "";
-        vector<int> freq(order.size(), 0);
-
-        for (int i = 0; i < n; i++)
+        auto myComparater = [&mp](char &c1, char &c2)
         {
-            // kia map main present hai ya nai
-            if (mp.find(s[i]) != mp.end())
-            {
-                // milgya wala case
-                int index = mp[s[i]];
+            return mp[c1 - 'a'] < mp[c2 - 'a'];
+        };
 
-                freq[index]++;
-            }
-            else
-            {
-                ans += s[i];
-            }
-        }
+        sort(s.begin(), s.end(), myComparater);
 
-        for (int i = 0; i < freq.size(); i++)
-        {
-            char ch = mp
-        }
-
-        return ans;
+        return s;
     }
 };
