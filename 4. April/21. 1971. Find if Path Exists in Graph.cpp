@@ -22,7 +22,7 @@ bool DFS(int src, int dest, vector<bool> &visited)
             return true;
     }
 
-    visited[curr] = false;
+    // visited[curr] = false;
     return false;
 }
 
