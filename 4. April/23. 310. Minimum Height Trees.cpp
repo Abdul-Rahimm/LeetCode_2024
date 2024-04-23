@@ -5,7 +5,7 @@ using namespace std;
 typedef vector<int> vi;
 typedef vector<vi> vii;
 
-int BFS(int i, unordered_map<int, vector<int>> &adj, vector<bool> &visited)
+int BFS_TLE(int i, unordered_map<int, vector<int>> &adj, vector<bool> &visited)
 {
 
     int level = 1;
@@ -35,7 +35,7 @@ int BFS(int i, unordered_map<int, vector<int>> &adj, vector<bool> &visited)
     return level;
 }
 
-vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges)
+vector<int> findMinHeightTrees_TLE(int n, vector<vector<int>> &edges)
 {
 
     // hit BFS from every node and return the min score
@@ -68,6 +68,69 @@ vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges)
     {
         if (scores[i] == min_score)
             ans.push_back(i);
+    }
+
+    return ans;
+}
+
+vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges)
+{
+    if (n == 1)
+        return {0};
+
+    vector<int> inDegree(n, 0);
+    unordered_map<int, vector<int>> adj;
+
+    for (vector<int> row : edges)
+    {
+        int u = row[0];
+        int v = row[1];
+
+        inDegree[u]++;
+        inDegree[v]++;
+
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    queue<int> q;
+
+    for (int i = 0; i < n; i++)
+        // push the leafs into the queue
+        if (inDegree[i] == 1)
+            q.push(i);
+
+    int nodes = 0;
+    // stop the process when you reach nodes-2 or nodes-1
+    // meaning all nodes covered and most middles one left
+
+    while (nodes < n - 2)
+    {
+        int levelNodes = q.size();
+
+        while (levelNodes--)
+        {
+            int curr = q.front();
+            q.pop();
+            inDegree[curr]--;
+            nodes++;
+
+            for (int i : adj[curr])
+            {
+                inDegree[i]--;
+
+                if (inDegree[i] == 1)
+                    q.push(i);
+            }
+        }
+    }
+
+    vector<int> ans;
+
+    while (!q.empty())
+    {
+        ans.push_back(q.front());
+        q.pop();
     }
 
     return ans;
