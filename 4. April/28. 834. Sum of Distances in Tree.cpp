@@ -55,7 +55,7 @@ vector<int> sumOfDistancesInTree_BFS_BruteForce(int n, vector<vector<int>> &edge
     for (int i = 0; i < n; i++)
     {
         vector<bool> visited(n, false);
-        ans[i] = BFS(i, adj, visited);
+        ans[i] = BFS_brute_force(i, adj, visited);
     }
 
     return ans;
