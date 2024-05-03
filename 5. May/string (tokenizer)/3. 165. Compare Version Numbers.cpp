@@ -5,64 +5,44 @@ using namespace std;
 typedef vector<int> vi;
 typedef vector<vi> vii;
 
-void fillVector(vector<string> &vec, string s)
+vector<string> getTokens(string s)
 {
+    stringstream ss(s); // string converted into stream
 
-    string word;
-    int dotCount = 0;
-    for (int i = 0; i < s.length(); i++)
+    string token = "";
+    vector<string> tokens;
+
+    while (getline(ss, token, '.'))
     {
-
-        word.push_back(s[i]);
-
-        if (s[i] == '.' || i == s.size() - 1)
-        {
-            // cant directly push_back the word. remove leading zeros
-            int j = 0;
-            while (word[j] == '0' && dotCount >= 1)
-                word.erase(0, 1);
-
-            if (s[i] == '.')
-                word.pop_back(), dotCount++;
-
-            vec.push_back(word);
-
-            word.clear();
-        }
+        tokens.push_back(token);
     }
+
+    return tokens;
 }
 
 int compareVersion(string version1, string version2)
 {
 
-    vector<string> s1, s2;
+    vector<string> v1 = getTokens(version1);
+    vector<string> v2 = getTokens(version2);
 
-    fillVector(s1, version1);
-    fillVector(s2, version2);
+    int m = v1.size();
+    int n = v2.size();
+    int i = 0;
 
-    int len = max(s1.size(), s2.size());
-
-    for (int i = 0; i < len; i++)
+    while (i < m || i < n)
     {
 
-        if (i >= s1.size() && i < s2.size())
-        {
-            int number = stoi(s2[i]);
-            if (number > 0)
-                return -1;
-        }
+        int a = i < m ? stoi(v1[i]) : 0;
+        int b = i < n ? stoi(v2[i]) : 0;
 
-        if (i >= s2.size() && i < s1.size())
-        {
-            int number = stoi(s1[i]);
-            if (number > 0)
-                return 1;
-        }
-
-        if (s1[i] > s2[i])
-            return 1;
-        else if (s1[i] < s2[i])
+        if (a < b)
             return -1;
+        if (a > b)
+            return 1;
+        else
+            i++;
     }
+
     return 0;
 }
