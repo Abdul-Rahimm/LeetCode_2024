@@ -9,27 +9,29 @@ int m, n;
 vector<vector<int>> grid;
 vector<vi> directions{{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
 
-int backtrack(int i, int j, int maximum, int total)
+int backtrack(int i, int j)
 {
+
     // mark current cell visited
     int currentCell = grid[i][j];
-    grid[i][j] = -1;
+    grid[i][j] = 0;
 
-    for (auto dir : directions)
+    int maxGold = 0;
+
+    for (vector<int> dir : directions)
     {
         int new_i = i + dir[0];
         int new_j = j + dir[1];
 
-        if (new_i >= 0 && new_i < m && new_j >= 0 && new_j < n && grid[new_i][new_j] != -1 && grid[new_i][new_j] != 0)
-            maximum = max(backtrack(new_i, new_j, maximum, total) + currentCell, maximum);
+        if (new_i >= 0 && new_i < m && new_j >= 0 && new_j < n && grid[new_i][new_j] != 0)
+            maxGold = max(maxGold, backtrack(new_i, new_j));
     }
 
     // unmark
     grid[i][j] = currentCell;
 
-    return maximum;
+    return maxGold + currentCell;
 }
-
 int getMaximumGold(vector<vector<int>> &g)
 {
     grid = g;
