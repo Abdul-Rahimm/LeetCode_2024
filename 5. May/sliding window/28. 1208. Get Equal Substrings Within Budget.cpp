@@ -19,22 +19,18 @@ int equalSubstring(string s, string t, int maxCost)
         // differences[j] = diff;
         sum += diff;
 
-        if (sum <= maxCost)
+        while (sum > maxCost)
         {
-            len = max(len, j - i + 1);
-            j++;
+            sum -= abs(s[i] - t[i]);
+            i++;
         }
-        else
-        {
-            while (sum > maxCost)
-            {
-                sum -= abs(s[i] - t[i]);
-                i++;
-            }
-        }
+
+        len = max(len, j - i + 1);
+        j++;
     }
     return len;
 }
+
 int main()
 {
     string s = "abcd";
