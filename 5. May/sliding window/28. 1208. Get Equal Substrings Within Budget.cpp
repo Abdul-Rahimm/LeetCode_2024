@@ -11,18 +11,19 @@ int equalSubstring(string s, string t, int maxCost)
     vector<int> differences(n + 1, 0);
     int len = 0;
     int sum = 0;
+    int i = 0, j = 0, idx = -1;
 
-    for (int i = 0, j = 0; i < n && j < n; i++)
+    while (i < n && j < n)
     {
-
-        int diff = abs(int(s[i]) - int(t[i]));
+        idx++;
+        int diff = abs(int(s[idx]) - int(t[idx]));
         differences[i] = diff;
         sum += diff;
 
         if (sum <= maxCost)
         {
+            len = max(len, j - i + 1);
             j++;
-            len = max(len, j);
         }
         else
         {
@@ -31,4 +32,13 @@ int equalSubstring(string s, string t, int maxCost)
         }
     }
     return len;
+}
+
+int main()
+{
+    string s = "abcd";
+    string t = "acde";
+    int maxcost = 0;
+
+    cout << equalSubstring(s, t, maxcost);
 }
