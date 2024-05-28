@@ -8,16 +8,15 @@ typedef vector<vi> vii;
 int equalSubstring(string s, string t, int maxCost)
 {
     int n = s.size();
-    vector<int> differences(n + 1, 0);
+    // vector<int> differences(n + 1, 0);
     int len = 0;
     int sum = 0;
-    int i = 0, j = 0, idx = -1;
+    int i = 0, j = 0;
 
-    while (i < n && j < n)
+    while (j < n)
     {
-        idx++;
-        int diff = abs(int(s[idx]) - int(t[idx]));
-        differences[i] = diff;
+        int diff = abs(int(s[j]) - int(t[j]));
+        // differences[j] = diff;
         sum += diff;
 
         if (sum <= maxCost)
@@ -27,18 +26,20 @@ int equalSubstring(string s, string t, int maxCost)
         }
         else
         {
-            sum -= differences[i];
-            i++;
+            while (sum > maxCost)
+            {
+                sum -= abs(s[i] - t[i]);
+                i++;
+            }
         }
     }
     return len;
 }
-
 int main()
 {
     string s = "abcd";
-    string t = "acde";
-    int maxcost = 0;
+    string t = "cdef";
+    int maxcost = 3;
 
     cout << equalSubstring(s, t, maxcost);
 }
