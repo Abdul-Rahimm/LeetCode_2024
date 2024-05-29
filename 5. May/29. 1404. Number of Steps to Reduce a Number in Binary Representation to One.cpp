@@ -4,47 +4,33 @@ using namespace std;
 #define all(x) x.begin(), x.end()
 typedef vector<int> vi;
 typedef vector<vi> vii;
-bool isEven_outdated(int num)
-{
-    return num % 2 == 0;
-}
-int numSteps_failed(string s)
-{
-    int size = s.size();
-    int value = 0;
-    int power = 1;
 
-    for (int i = size - 1; i >= 0; i--)
-    {
-        int number = int(s[i] - 48);
-
-        value += power * number;
-
-        power *= 2;
-    }
-
-    int steps = 0;
-
-    while (value != 1)
-    {
-        if (isEven_outdated(value))
-        {
-            value /= 2;
-        }
-        else
-        {
-            value += 1;
-        }
-
-        steps++;
-    }
-
-    return steps;
-}
-// --------------------------------------------------------------------------
 bool isEven(string s)
 {
     return s[s.size() - 1] == '0';
+}
+void allOnes(string &s)
+{
+    bool isAllOnes = true;
+
+    for (int i = 0; i < s.size(); i++)
+    {
+        if (s[i] == '0')
+        {
+            isAllOnes = false;
+            break;
+        }
+    }
+
+    string str;
+    if (isAllOnes)
+    {
+        str = "0";
+        for (int i = 0; i < s.size(); i++)
+            str += s[i];
+
+        s = str; // appended 0 at the beginning
+    }
 }
 void shiftAllRight(string &s)
 {
@@ -71,11 +57,30 @@ void moveLSBleft(string &s)
         j--;
     } while (cont);
 }
+bool isReachedOne(string s)
+{
+    int size = s.size();
+
+    bool status = false;
+
+    for (int i = 0; i < size - 1; i++)
+    {
+        if (s[i] == '1')
+            return false;
+    }
+
+    if (s[size - 1] == '0')
+        return false;
+
+    return true;
+}
+
 int numSteps(string s)
 {
     int steps = 0;
+    allOnes(s); // if all ones then append a 0 at the start
 
-    while (stoi(s) != 1)
+    while (isReachedOne(s) == false)
     {
         steps++;
 
@@ -93,10 +98,9 @@ int numSteps(string s)
 
     return steps;
 }
-
 int main()
 {
-    string s = "1101";
+    string s = "11111000111";
     int ans = numSteps(s);
     cout << ans << endl;
 }
