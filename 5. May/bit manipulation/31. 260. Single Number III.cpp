@@ -8,10 +8,9 @@ typedef vector<vi> vii;
 vector<int> singleNumber(vector<int> &nums)
 {
     int n = nums.size();
-    vector<int> ans;
 
     int first = 0, second = 0; // two groups
-    int allXor = 0;
+    long long allXor = 0;
 
     // 1. find the xor of all numbers
     for (int i : nums)
@@ -21,15 +20,13 @@ vector<int> singleNumber(vector<int> &nums)
 
     for (int i : nums)
     {
-        if (mask ^ i == 0)
+        if (mask & i)
             first ^= i; // belongs to first group
         else
             second ^= i;
     }
 
-    ans.push_back(first);
-    ans.push_back(second);
-    return ans;
+    return {first, second};
 }
 
 void print(vi nums)
