@@ -6,6 +6,8 @@ typedef vector<int> vi;
 typedef vector<vi> vii;
 string matchWord(string word, vector<string> dict)
 {
+    string ret;
+    int savej = INT_MAX;
     for (int i = 0; i < dict.size(); i++)
     {
         string curr = dict[i];
@@ -16,9 +18,26 @@ string matchWord(string word, vector<string> dict)
                 break;
 
             if (j == curr.size() - 1)
-                return curr;
+            {
+                if (savej == INT_MAX)
+                {
+                    ret = curr;
+                    savej = j;
+                }
+                else
+                {
+                    if (j < savej)
+                    {
+                        // meaning a more short prefix
+                        savej = j;
+                        ret = curr;
+                    }
+                }
+            }
         }
     }
+    if (!ret.empty())
+        return ret;
 
     return word;
 }
@@ -50,7 +69,7 @@ string replaceWords(vector<string> &dictionary, string sentence)
 
 int main()
 {
-    vector<string> dict{"cat", "bat", "rat"};
+    vector<string> dict{"catt", "cat", "bat", "rat"};
     string sentence = "the cattle was rattled by the battery";
     string answer = replaceWords(dict, sentence);
     cout << answer << endl;
