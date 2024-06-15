@@ -4,48 +4,53 @@ using namespace std;
 #define all(x) x.begin(), x.end()
 typedef vector<int> vi;
 typedef vector<vi> vii;
+// time complexity  - how much time your code takes to run/compile
+// space complexity - map space
 
-void showFrequency(vector<int> nums)
+vector<int> findWordsContaining(vector<string> &words, char x)
 {
-    // processing
 
-    // utne numbers input user se and store them in nums
+    // Design
+    //  1. iterate over all strings in the array
+    //  2. for each string --> if the char exists or not
+    //      3. if char exists --> uss string ka index ko push krdenge vector<int> indexes
+    //  4. return vector<int>
 
-    // output:
-    // 1 : 2
-    // 2 : 2
-    // 3 : 4
+    vector<int> indexes;
 
-    // map use
-    //  key  value
-    //  int  int
+    for (int i = 0; i < words.size(); i++)
+    {
+
+        string current = words[i]; //"leet"
+
+        for (char ch : current)
+        {
+
+            // char by char iterate over leet
+            if (ch == x)
+            {
+                // char found in current word -- error
+                indexes.push_back(i);
+                break; // inner for loop se bahar
+            }
+        }
+    }
+
+    return indexes;
 }
 
 void print(vector<int> nums)
 {
-    for (int number : nums)
+    for (int i : nums)
     {
-        cout << number << " ";
+        cout << i << " ";
     }
     cout << endl;
 }
+
 int main()
 {
-    // {1,1,2,2,3,3,3,3};
-    // vector<int> nums;
-    int elements;
-
-    // user asks k nums main kitne number hone chiaye
-    cout << "please enter the number of elements: ";
-    cin >> elements;
-
-    vector<int> nums(elements); // size
-    // utne numbers vector<int> .push_back
-
-    for (int i = 0; i < elements; i++)
-    {
-        cin >> nums[i];
-    }
-
-    print(nums);
+    vector<string> words{"leet", "codee"};
+    vector<int> answer = findWordsContaining(words, 'e');
+    print(answer);
 }
