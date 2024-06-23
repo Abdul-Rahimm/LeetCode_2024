@@ -4,20 +4,37 @@
 
 #include <vector>
 #include <iostream>
-
+using namespace std;
 // Define your types for convenience
-typedef std::vector<int> vi;
+typedef vector<int> vi;
 
 // Function to print a vector of integers
 void print(const vi &nums)
 {
     for (int i : nums)
     {
-        std::cout << i << " ";
+        cout << i << " ";
     }
-    std::cout << std::endl;
+    cout << endl;
 }
 
-// You can add more utility functions here
+void print(priority_queue<int, vi, greater<int>> minHeap)
+{
+    while (minHeap.empty() != true)
+    {
+        cout << minHeap.top() << " ";
+        minHeap.pop();
+    }
+    cout << endl;
+}
+void print(priority_queue<int> maxHeap)
+{
+    while (maxHeap.empty() != true)
+    {
+        cout << maxHeap.top() << " ";
+        maxHeap.pop();
+    }
+    cout << endl;
+}
 
-#endif // UTILS_H
+#endif
