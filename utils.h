@@ -37,4 +37,13 @@ void print(priority_queue<int> maxHeap)
     cout << endl;
 }
 
+void print(vector<pair<int, int>> vec)
+{
+    for (pair<int, int> pr : vec)
+    {
+        cout << pr.first << " " << pr.second << endl;
+    }
+    cout << endl;
+}
+
 #endif
