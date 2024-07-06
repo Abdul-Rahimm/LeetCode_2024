@@ -6,3 +6,5 @@
 bubblesort.cpp
 misc.cpp
 challenge.cpp
+*.ipynb
+easy_question.cpp
