@@ -45,5 +45,19 @@ void print(vector<pair<int, int>> vec)
     }
     cout << endl;
 }
-
+void print(map<int, int> mp)
+{
+    for (auto row : mp)
+    {
+        cout << row.first << " : " << row.second << endl;
+    }
+}
+void print(unordered_map<int, int> mp)
+{
+    for (auto row : mp)
+    {
+        cout << row.first << " : " << row.second << endl;
+    }
+}
+// function overloading
 #endif
