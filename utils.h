@@ -59,5 +59,19 @@ void print(unordered_map<int, int> mp)
         cout << row.first << " : " << row.second << endl;
     }
 }
+void print(vector<vector<int>> matrix)
+{
+    int n = matrix.size();
+    int j = matrix[0].size();
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << matrix[i][j] << " ";
+        }
+    }
+}
+
 // function overloading
 #endif
