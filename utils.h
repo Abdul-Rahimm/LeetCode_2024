@@ -70,6 +70,7 @@ void print(vector<vector<int>> matrix)
         {
             cout << matrix[i][j] << " ";
         }
+        cout << endl;
     }
 }
 
