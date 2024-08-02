@@ -8,6 +8,12 @@ typedef vector<vi> vii;
 int minSwaps(vector<int> &nums)
 {
     int n = nums.size();
+
+    for (int i = 0; i < n; i++)
+    {
+        nums.push_back(nums[i]);
+    }
+
     int totalOnes = 0;
 
     for (int i = 0; i < n; i++)
@@ -24,7 +30,7 @@ int minSwaps(vector<int> &nums)
     }
 
     int swaps = totalOnes - count;
-    for (int i = totalOnes; i < n; i++)
+    for (int i = totalOnes; i < 2 * n; i++)
     {
         count -= nums[i - totalOnes];
         count += nums[i];
@@ -33,8 +39,4 @@ int minSwaps(vector<int> &nums)
     }
 
     return swaps;
-}
-
-int main()
-{
 }
