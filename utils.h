@@ -73,6 +73,12 @@ void print(vector<vector<int>> matrix)
         cout << endl;
     }
 }
-
+void print(unordered_map<string, int> mp)
+{
+    for (auto row : mp)
+    {
+        cout << row.first << " : " << row.second << endl;
+    }
+}
 // function overloading
 #endif
