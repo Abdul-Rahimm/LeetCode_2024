@@ -23,6 +23,7 @@ void DFS(vector<vector<int>> &grid, int i, int j, vector<vector<bool>> &visited)
     }
 }
 
+//useful to be modular
 int numberOfIslandsDFS(vector<vector<int>> &grid)
 {
 
