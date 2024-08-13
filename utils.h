@@ -62,11 +62,11 @@ void print(unordered_map<int, int> mp)
 void print(vector<vector<int>> matrix)
 {
     int n = matrix.size();
-    int j = matrix[0].size();
+    int m = matrix[0].size();
 
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
+        for (int j = 0; j < m; j++)
         {
             cout << matrix[i][j] << " ";
         }
