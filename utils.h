@@ -7,7 +7,7 @@
 using namespace std;
 // Define your types for convenience
 typedef vector<int> vi;
-
+typedef pair<int, int> P;
 // Function to print a vector of integers
 void print(const vi &nums)
 {
@@ -32,6 +32,26 @@ void print(priority_queue<int> maxHeap)
     while (maxHeap.empty() != true)
     {
         cout << maxHeap.top() << " ";
+        maxHeap.pop();
+    }
+    cout << endl;
+}
+void print(priority_queue<P, vector<P>, greater<P>> minHeap)
+{
+    while (minHeap.empty() != true)
+    {
+        P top = minHeap.top();
+        cout << top.first << " " << top.second << endl;
+        minHeap.pop();
+    }
+    cout << endl;
+}
+void print(priority_queue<P> maxHeap)
+{
+    while (maxHeap.empty() != true)
+    {
+        P top = maxHeap.top();
+        cout << top.first << " " << top.second << endl;
         maxHeap.pop();
     }
     cout << endl;
