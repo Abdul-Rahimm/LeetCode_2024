@@ -100,5 +100,19 @@ void print(unordered_map<string, int> mp)
         cout << row.first << " : " << row.second << endl;
     }
 }
-// function overloading
+void print(unordered_map<int, vector<pair<int, double>>> mp)
+{
+    for (auto row : mp)
+    {
+        int number = row.first;
+        vector<pair<int, double>> pr = row.second;
+
+        cout << number << " : ";
+        for (auto pair : pr)
+        {
+            cout << pair.first << " " << pair.second << " | ";
+        }
+        cout << endl;
+    }
+}
 #endif
