@@ -123,4 +123,12 @@ void print(unordered_map<int, vector<pair<int, double>>> mp)
         cout << endl;
     }
 }
+void print(vector<pair<int, int>> allPairs)
+{
+    for (P row : allPairs)
+    {
+        cout << row.first << " " << row.second << " | ";
+    }
+    cout << endl;
+}
 #endif
