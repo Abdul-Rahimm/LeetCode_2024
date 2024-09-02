@@ -17,6 +17,14 @@ void print(const vi &nums)
     }
     cout << endl;
 }
+void print(int start, const vi &nums)
+{
+    for (int i = start; i < nums.size(); i++)
+    {
+        cout << nums[i] << " ";
+    }
+    cout << endl;
+}
 
 void print(priority_queue<int, vi, greater<int>> minHeap)
 {
