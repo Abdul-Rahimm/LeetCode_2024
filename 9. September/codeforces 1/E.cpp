@@ -29,39 +29,26 @@ signed main(void)
 
 void solve()
 {
-    int n;
-    cin >> n;
-    int ans = 0;
+    int n; // len
+    int k; // start
+    cin >> n >> k;
+    // 3 4 5 6 7
+    vector<int> forward(1, k); // first element as k
+    vector<int> backward;
 
-    vector<vector<int>> points;
-
-    for (int i = 0; i < n; i++)
+    for (int i = k + 1, index = 1; i < n + k; i++, index++)
     {
-        int x, y;
-        cin >> x >> y;
-
-        points.push_back({x, y});
+        forward.push_back(forward[index - 1] + i);
     }
 
-    sort(all(points));
-
-    for (int i = 0; i < n - 1; i++)
+    int sum = 0;
+    for (int i = n + k - 1; i >= k; i--)
     {
-        // str line condition
-        int currentX = points[i][0];
-        int nextX = points[i + 1][0];
-
-        if (currentX == nextX)
-        {
-            ans += n - 2;
-        }
+        sum += i;
+        backward.push_back(sum);
     }
 
-    for (int i = 1; i < n - 2; i++)
-    {
-
-        int currentX = points[i][0];
-    }
-
-    cout << ans << endl;
+    print(forward);
+    reverse(forward.begin(), forward.end());
+    print(forward);
 }
