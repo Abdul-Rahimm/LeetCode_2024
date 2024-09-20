@@ -5,43 +5,20 @@ using namespace std;
 typedef vector<int> vi;
 typedef vector<vi> vii;
 
-bool isPalindrome(string s)
-{
-    int n = s.length();
-    int i = 0;
-    int j = n - 1;
-
-    while (i < j)
-    {
-        if (s[i] != s[j])
-            return false;
-
-        i++;
-        j--;
-    }
-
-    return true;
-}
-
 string shortestPalindrome(string s)
 {
-    int n = s.length();
-    int i = n - 1;
-    string ans = "";
+    string rev = s;
+    reverse(rev.begin(), rev.end());
+    int i = 0;
 
-    if (isPalindrome(s))
-        return s;
-
-    while (i >= 1)
+    while (i < s.length())
     {
-        string current = s.substr(i, n);
-        reverse(current.begin(), current.end());
 
-        string newtest = current + s;
-        if (isPalindrome(newtest))
-            return newtest;
-        i--;
+        if (memcmp(s.c_str(), rev.c_str() + i, s.length() - i) == 0)
+            return rev.substr(0, i) + s;
+
+        i++;
     }
 
-    return ans;
+    return "";
 }
