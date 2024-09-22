@@ -6,43 +6,42 @@ using namespace std;
 typedef vector<int> vi;
 typedef vector<vi> vii;
 
-int n;
-void solve(vector<int> &ans, int num)
+int Count(long curr, long next, int n)
 {
-    if (num > n)
-        return;
+    int countNum = 0;
 
-    for (int i = 0; i <= 9; i++)
+    while (curr <= n)
     {
-        string newNumber = to_string(num) + to_string(i);
-        int number = stoi(newNumber);
+        countNum += (next - curr);
 
-        if (number <= n)
-            ans.push_back(number);
+        curr *= 10;
+        next *= 10;
 
-        solve(ans, number);
-    }
-}
-vector<int> lexicalOrder(int limit)
-{
-    vector<int> ans;
-    n = limit;
-
-    for (int i = 1; i <= 9; i++)
-    {
-        if (i <= n)
-            ans.push_back(i);
-
-        solve(ans, i);
+        next = min(next, long(n + 1));
     }
 
-    return ans;
+    return countNum;
 }
-
-int main()
+int findKthNumber(int n, int k)
 {
+    int curr = 1;
+    k--;
 
-    int num = 13;
-    vector<int> ans = lexicalOrder(num);
-    print(ans);
+    while (k > 0)
+    {
+        int count = Count(curr, curr + 1, n);
+
+        if (count <= k)
+        {
+            curr++;
+            k -= count;
+        }
+        else
+        {
+            curr *= 10;
+            k -= 1;
+        }
+    }
+
+    return curr;
 }
