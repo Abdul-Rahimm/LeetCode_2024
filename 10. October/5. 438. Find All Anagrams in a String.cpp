@@ -9,17 +9,32 @@ vector<int> findAnagrams(string s, string p)
 {
     int n = s.length();
     int m = p.length();
-    sort(p.begin(), p.end());
+    unordered_map<char, int> mp, loop;
+
+    for (char i : p)
+        mp[i]++;
 
     vector<int> ans;
 
-    for (int i = 0; i <= n - m; i++)
-    {
-        string curr = s.substr(i, m);
-        sort(curr.begin(), curr.end());
+    int i = 0;
+    int j = 0;
 
-        if (curr == p)
+    while (j < n)
+    {
+        loop[s[j]]++;
+
+        if (j - i + 1 > m)
+        {
+            loop[s[i]]--;
+            if (loop[s[i]] == 0)
+                loop.erase(s[i]);
+            i++;
+        }
+
+        if (mp == loop)
             ans.push_back(i);
+
+        j++;
     }
 
     return ans;
