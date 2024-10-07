@@ -7,19 +7,29 @@ typedef vector<vi> vii;
 
 int minLength(string s)
 {
-    stack<char> st;
+    int r = 1, w = 1;
+    int n = s.size();
 
-    for (int i = 0; i < s.size(); i++)
+    while (r < n)
     {
-        if (!st.empty() && ((s[i] == 'B' && st.top() == 'A') || (s[i] == 'D' && st.top() == 'C')))
+        s[w] = s[r];
+
+        if (w > 0 && ((s[w] == 'B' && s[w - 1] == 'A') || (s[w] == 'D' && s[w - 1] == 'C')))
         {
-            st.pop();
+            w--;
         }
         else
-        {
-            st.push(s[i]);
-        }
+            w++;
+
+        r++;
     }
 
-    return st.size(); //
+    return w;
+}
+
+int main()
+{
+    string s = "ABFCACDB";
+    cout << minLength(s) << endl;
+    return 0;
 }
