@@ -80,6 +80,13 @@ void print(map<int, int> mp)
         cout << row.first << " : " << row.second << endl;
     }
 }
+void print(map<int, int, greater<int>> mp)
+{
+    for (auto row : mp)
+    {
+        cout << row.first << " : " << row.second << endl;
+    }
+}
 void print(unordered_map<int, int> mp)
 {
     for (auto row : mp)
@@ -123,6 +130,7 @@ void print(unordered_map<int, vector<pair<int, double>>> mp)
         cout << endl;
     }
 }
+
 void print(unordered_set<int> st)
 {
     for (int i : st)
