@@ -64,6 +64,16 @@ void print(priority_queue<P> maxHeap)
     }
     cout << endl;
 }
+void print(priority_queue<pair<int, char>> pq)
+{
+    while (pq.empty() != true)
+    {
+        pair<int, char> top = pq.top();
+        cout << top.first << " " << top.second << " | ";
+        pq.pop();
+    }
+    cout << endl;
+}
 
 void print(vector<pair<int, int>> vec)
 {
@@ -80,6 +90,14 @@ void print(map<int, int> mp)
         cout << row.first << " : " << row.second << endl;
     }
 }
+void print(map<int, char> mp)
+{
+    for (auto row : mp)
+    {
+        cout << row.first << " : " << row.second << endl;
+    }
+}
+
 void print(map<int, int, greater<int>> mp)
 {
     for (auto row : mp)
