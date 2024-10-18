@@ -10,7 +10,7 @@ typedef vector<vi> vvi;
 typedef array<int, 2> ii;
 typedef vector<ii> vii;
 const int mod = 1e9 + 7;
-
+#define ll int
 void solve();
 
 signed main(void)
@@ -31,38 +31,19 @@ void solve()
     int n, x;
     cin >> n >> x;
 
-    vector<int> nums(n);
-    for (int &i : nums)
+    vector<int> arr(n);
+
+    int sum = 0;
+    int mx = 0;
+
+    for (int i = 0; i < n; i++)
     {
-        cin >> i;
+        cin >> arr[i];
+        mx = max(mx, arr[i]);
+        sum += arr[i];
     }
 
-    priority_queue<int> pq(nums.begin(), nums.end());
-
-    int turns = 0;
-    while (!pq.empty())
-    {
-        vector<int> temp(x, 0);
-        for (int i = 0; i < x; i++)
-        {
-            if (!pq.empty())
-            {
-                temp[i] = pq.top();
-                pq.pop();
-                temp[i]--;
-            }
-        }
-
-        for (int i = 0; i < x; i++)
-        {
-            if (temp[i] > 0)
-            {
-                pq.push(temp[i]);
-            }
-        }
-
-        turns++;
-    }
-
-    cout << turns << endl;
+    // calculate ceil of average
+    int avg = (sum + x - 1) / (int)x;
+    cout << max(mx, avg) << endl;
 }
