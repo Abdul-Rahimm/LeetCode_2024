@@ -4,8 +4,6 @@ using namespace std;
 #define endl '\n'
 #define pb push_back
 #define all(x) x.begin(), x.end()
-#define for(n) for (int i = 0; i < n; i++)
-#define rev(n) for (int i = n; i >= 0; i--)
 #define py cout << "YES\n";
 #define pn cout << "NO\n";
 #define p1 cout << "-1\n";
@@ -32,4 +30,18 @@ signed main(void)
 
 void solve()
 {
+    int n;
+    cin >> n;
+
+    cout << "0";
+
+    if (n > 1)
+    {
+        cout << "1";
+
+        for (int i = 2; i < n; i++)
+            cout << "0";
+    }
+
+    cout << endl;
 }
