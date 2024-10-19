@@ -26,33 +26,6 @@ signed main(void)
 
     return 0;
 }
-bool solved(int i, int j, vi &first, vi &second, int ascore, int bscore, int need)
-{
-
-    if (i >= first.size() || j >= second.size())
-        return false;
-    if (ascore + bscore == req && ascore == bscore)
-        return true;
-
-    bool firstpath = false, secondpath = false, nottake = false;
-    if (first[i] == need && second[j] == need)
-    {
-        firstpath = solved(i + 1, j, first, second, ascore + 1, bscore, need + 1);
-        secondpath = solved(i, j + 1, first, second, ascore, bscore + 1, need + 1);
-    }
-    else if (first[i] == need)
-    {
-        firstpath = solved(i + 1, j, first, second, ascore + 1, bscore, need + 1);
-    }
-    else if (second[j] == need)
-    {
-        secondpath = solved(i, j + 1, first, second, ascore, bscore + 1, need + 1);
-    }
-    else
-        nottake = solved(i + 1, j + 1, first, second, ascore, bscore, need);
-
-    return firstpath | secondpath | nottake;
-}
 
 void solve()
 {
@@ -60,19 +33,49 @@ void solve()
     cin >> n >> m >> k;
     req = k;
 
-    vector<int> first(n);
-    for (int &i : first)
-        cin >> i;
+    unordered_map<int, int> mp1;
+    for (int i = 0; i < n; i++)
+    {
+        int num;
+        cin >> num;
+        if (mp1[num] == 0)
+            mp1[num]++;
+    }
 
-    vector<int> second(m);
-    for (int &i : second)
-        cin >> i;
+    unordered_map<int, int> mp2;
+    for (int i = 0; i < m; i++)
+    {
+        int num;
+        cin >> num;
+        if (mp2[num] == 0)
+            mp2[num]++;
+    }
 
-    sort(first.begin(), first.end());
-    sort(second.begin(), second.end());
+    int x = 0, y = 0;
+    for (int i = 1; i <= k; i++)
+    {
+        bool status = false;
 
-    bool ans = solved(0, 0, first, second, 0, 0, 1);
-    if (ans)
+        if (mp1[i] > 0)
+        {
+            x++;
+            status = true;
+        }
+
+        if (mp2[i] > 0)
+        {
+            y++;
+            status = true;
+        }
+
+        if (!status)
+        {
+            cout << "NO" << endl;
+            return;
+        }
+    }
+
+    if (x >= k / 2 && y >= k / 2)
         cout << "YES" << endl;
     else
         cout << "NO" << endl;
