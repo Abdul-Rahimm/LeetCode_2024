@@ -17,6 +17,20 @@ void print(const vi &nums)
     }
     cout << endl;
 }
+void print(vector<vector<char>> chars)
+{
+    int n = chars.size();
+    int m = chars[0].size();
+
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            cout << chars[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
 void print(int start, const vi &nums)
 {
     for (int i = start; i < nums.size(); i++)
