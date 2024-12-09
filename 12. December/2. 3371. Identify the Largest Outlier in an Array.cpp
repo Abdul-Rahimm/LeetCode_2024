@@ -7,38 +7,34 @@ typedef vector<vi> vii;
 
 int getLargestOutlier(vector<int> &nums)
 {
-    // sort(nums.begin(), nums.end());
     unordered_map<int, int> mp;
-    int total = 0;
+    int total = accumulate(nums.begin(), nums.end(), 0);
+    int result = INT_MIN;
 
-    for (int i : nums)
+    for (int curr : nums)
     {
-        mp[i]++;
-        total += i;
-    }
 
-    int n = nums.size();
+        int outlier = total - 2 * curr;
+        int sum = (total - curr) / 2;
 
-    for (int i = 0; i < n; i++)
-    {
-        cout << total << " -= " << nums[i];
-        total -= nums[i];
-
-        if (total % 2 == 0)
+        if (mp.count(outlier))
         {
-            if (mp.find(total / 2) != mp.end())
-            {
-                return nums[i];
-            }
+            result = max(result, outlier);
         }
 
-        total += nums[i];
+        if (2 * sum + curr == total && mp.count(sum))
+        {
+            result = max(result, curr);
+        }
+
+        mp[curr]++;
     }
 
-    return -1;
+    return result;
 }
+
 int main()
 {
-    vi nums{-2, -1, -3, -6, 4};
+    vi nums{2, 3, 5, 10};
     cout << getLargestOutlier(nums) << endl;
 }
