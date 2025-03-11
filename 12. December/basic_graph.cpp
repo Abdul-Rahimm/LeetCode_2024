@@ -1,106 +1,54 @@
 // بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
+using namespace __gnu_pbds;
 using namespace std;
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> indexed_set;
+#define pb push_back
 #define all(x) x.begin(), x.end()
+#define int long long
+#define py cout << "YES\n";
+#define pn cout << "NO\n";
+#define forn(a, b) for (int i = a; i < b; i++)
+#define nl cout << endl;
+#define pii pair<int, int>
+typedef long long ll;
 typedef vector<int> vi;
 typedef vector<vi> vii;
+const int mod = 1e9 + 7;
 
-void printAdj(map<int, vector<int>> &adj)
+void solve();
+
+signed main(void)
 {
-    for (auto row : adj)
-    {
-        int key = row.first;
-        vector<int> values = row.second;
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int tc = 1;
 
-        cout << key << " : ";
-        for (int i : values)
-            cout << i << " ";
-        cout << endl;
-    }
+    while (tc--)
+        solve();
+
+    return 0;
 }
-bool isReachableDFS(map<int, vector<int>> &adj, int u, int v)
+
+void solve()
 {
-    // DFS
-    if (u == v)
-        return true;
+    unordered_map<int, int> mp;
 
-    // where can i go from u(Current node)
-    for (int ngbr : adj[u])
+    mp[1234] = 10;
+    mp[3951] = 100;
+    mp[3951] = 1200;
+    mp[1]; // by default 0
+    mp[2] = 3;
+
+    // how to access the values inside the map
+    // print the map
+
+    for (auto row : mp)
     {
-        // early return
-        if (isReachableDFS(adj, ngbr, v) == true)
-            return true;
-    }
-
-    return false;
-}
-bool isReachableBFS(map<int, vector<int>> &adj, int u, int v)
-{
-    queue<int> q;
-    q.push(u);
-
-    while (!q.empty())
-    {
-        int curr = q.front(); // 1
-        q.pop();
-        if (curr == v)
-            return true; //
-
-        // where can i go from u
-        for (int ngbr : adj[curr])
-        {
-            q.push(ngbr);
-        }
+        cout << row.first << " " << row.second << endl;
     }
 
-    return false;
-}
-void printLevelOrder(map<int, vector<int>> &adj, int start)
-{
-    queue<int> q;
-    q.push(start);
-    int level = 1; // 3
-
-    while (!q.empty())
-    {
-        //    | 6 7 8 |
-        int NodesInCurrentLevel = q.size(); // 3
-        cout << level << " : ";
-
-        for (int i = 0; i < NodesInCurrentLevel; i++)
-        {
-            int curr = q.front(); // 5
-            cout << curr << ", ";
-            q.pop();
-
-            for (int ngbr : adj[curr])
-            {
-                q.push(ngbr);
-            }
-        }
-
-        level++;
-        cout << endl;
-    }
-}
-// create a graph representation
-// print the DFS traversal
-int main()
-{
-    map<int, vector<int>> adj;
-
-    adj[1].push_back(2);
-    adj[1].push_back(3);
-    adj[1].push_back(4);
-    adj[1].push_back(5);
-    adj[2].push_back(6);
-    adj[2].push_back(7);
-    adj[5].push_back(8);
-    adj[8].push_back(9);
-
-    int src = 1;
-    int tar = 8; // NO
-
-    // modular
-    printLevelOrder(adj, 1);
+    cout << mp[3];
 }
