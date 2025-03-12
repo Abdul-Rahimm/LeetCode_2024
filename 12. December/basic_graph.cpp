@@ -32,23 +32,29 @@ signed main(void)
     return 0;
 }
 
+class node
+{
+public:
+    int value;
+    node *left;
+    node *right;
+
+    // which gets automatically called
+    node(int x)
+    {
+        value = x;
+        left = NULL;
+        right = NULL;
+    }
+};
+
 void solve()
 {
-    unordered_map<int, int> mp;
+    node *root = new node(10);
+    root->left = new node(20);
+    root->right = new node(30);
+    root->left->left = new node(40);
+    root->left->right = new node(50);
 
-    mp[1234] = 10;
-    mp[3951] = 100;
-    mp[3951] = 1200;
-    mp[1]; // by default 0
-    mp[2] = 3;
-
-    // how to access the values inside the map
-    // print the map
-
-    for (auto row : mp)
-    {
-        cout << row.first << " " << row.second << endl;
-    }
-
-    cout << mp[3];
+    // tree traverse
 }
