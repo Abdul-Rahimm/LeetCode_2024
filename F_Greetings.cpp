@@ -18,9 +18,8 @@ int recur(int i, int cap, vector<int> &value, vector<int> &weight)
 
 int main()
 {
-    int capacity = 10;
-    vector<int> value{10, 20, 30};
-    vector<int> weight{2, 4, 6};
+    string name = "abdul raheem";
+    string *ptr = &name; // pointer creation
 
-    cout << recur(0, 10, value, weight);
+    cout << *ptr; // dereference
 }
